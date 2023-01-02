@@ -30,7 +30,7 @@ jobs:
           npm run build
       - name: Deploy to GitHub Pages
         if: success()
-        uses: moondeuk/docs@v2
+        uses: moondeuk/docs@v1
         with:
           target_branch: main
           build_dir: build
