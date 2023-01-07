@@ -56,7 +56,7 @@ const config = {
         title: 'moondeuk.com',
         logo: {
           alt: 'moondeuk.com Logo',
-          src: 'img/logo-no-background.svg',
+          src: 'img/logo.svg',
         },
         items: [
           {
