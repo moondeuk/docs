@@ -54,6 +54,10 @@ const config = {
     ({
       navbar: {
         title: 'moondeuk.com',
+        logo: {
+          alt: 'moondeuk.com Logo',
+          src: 'img/logo-color.svg',
+        },
         items: [
           {
             type: 'doc',
