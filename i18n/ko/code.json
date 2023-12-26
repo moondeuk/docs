@@ -1,0 +1,218 @@
+{
+	"global.description": {
+		"message": "이 사이트는 개인 홈페이지입니다.",
+		"description": "The website description"
+	},
+	"global.tagline": {
+		"message": "Software 개발자, 엔지니어 혹은 아키텍처로 일하고 있습니다.",
+		"description": "The homepage tagline"
+	},
+	"global.title": {
+		"message": "moondeuk",
+		"description": "The website title"
+	},
+	"notfound.title": {
+		"message": "페이지를 찾을 수 없습니다.",
+		"description": "The title of the Not Found page"
+	},
+	"notfound.description": {
+		"message": "페이지를 찾을 수 없습니다...",
+		"description": "The description of the Not Found page"
+	},
+	"notfound.buttons.goback": {
+		"message": "뒤로가기",
+		"description": "The go-back button of the Not Found page"
+	},
+	"notfound.buttons.reload": {
+		"message": "페이지 재로드",
+		"description": "The reload button of the Not Found page"
+	},
+	"homepage.description.descriptionLine_1": {
+		"message": "열정적이고 자기 주도적인 IT 솔루션 아키텍트로, 제조 시스템 개발 분야에서 15년 이상의 경험을 보유하고 있습니다. 소프트웨어 개발에 대한 다양한 기술과 깊은 지식을 갖추고 있으며, 기술 아키텍처를 설계, 수정 및 테스트하는 데 능숙합니다. 강력한 비즈니스 도메인 프로세스 백그라운드를 가지고 있으며, 여러 프로그래밍 언어를 능숙하게 다룰 수 있습니다. 도메인 프로세스를 소프트웨어 솔루션으로 성공적으로 전환하고, 요구되는 실시간 환경에서 프로젝트를 시간에 맞춰 지속적으로 제공하는 데에 능력을 발휘하고 있습니다.",
+		"description": "The first line of description"
+	},
+	"theme.NotFound.title": {
+		"message": "페이지를 찾을 수 없음",
+		"description": "The title of the 404 page"
+	},
+	"theme.NotFound.p1": {
+		"message": "페이지를 찾을 수 없음.",
+		"description": "The first paragraph of the 404 page"
+	},
+	"theme.NotFound.p2": {
+		"message": "원래 URL에 링크된 사이트 소유자에게 연락하여 링크가 깨졌다고 알려주십시오.",
+		"description": "The 2nd paragraph of the 404 page"
+	},
+	"theme.AnnouncementBar.closeButtonAriaLabel": {
+		"message": "닫기",
+		"description": "The ARIA label for close button of announcement bar"
+	},
+	"theme.BackToTopButton.buttonAriaLabel": {
+		"message": "맨뒤로 가기",
+		"description": "The ARIA label for the back to top button"
+	},
+	"theme.blog.archive.title": {
+		"message": "Archiver",
+		"description": "The page & hero title of the blog archive page"
+	},
+	"theme.blog.archive.description": {
+		"message": "Archive",
+		"description": "The page & hero description of the blog archive page"
+	},
+	"theme.blog.paginator.navAriaLabel": {
+		"message": "블로그 글 목록 페이지",
+		"description": "The ARIA label for the blog pagination"
+	},
+	"theme.blog.paginator.newerEntries": {
+		"message": "최신 글 목록",
+		"description": "The label used to navigate to the newer blog posts page (previous page)"
+	},
+	"theme.blog.paginator.olderEntries": {
+		"message": "오래된 글 목록",
+		"description": "The label used to navigate to the older blog posts page (next page)"
+	},
+	"theme.blog.post.readingTime.plurals": {
+		"message": "읽는 시간 : {readingTime} 분",
+		"description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+	},
+	"theme.blog.post.readMore": {
+		"message": "더 읽기",
+		"description": "The label used in blog post item excerpts to link to full blog posts"
+	},
+	"theme.blog.post.paginator.navAriaLabel": {
+		"message": "블로그 글 목록 페이지",
+		"description": "The ARIA label for the blog posts pagination"
+	},
+	"theme.blog.post.paginator.newerPost": {
+		"message": "최신 글",
+		"description": "The blog post button label to navigate to the newer/previous post"
+	},
+	"theme.blog.post.paginator.olderPost": {
+		"message": "오래된 글",
+		"description": "The blog post button label to navigate to the older/next post"
+	},
+	"theme.blog.sidebar.navAriaLabel": {
+		"message": "블로그 최신 글",
+		"description": "The ARIA label for recent posts in the blog sidebar"
+	},
+	"theme.CodeBlock.copyButtonAriaLabel": {
+		"message": "클립보드로 복사하기",
+		"description": "The ARIA label for copy code blocks button"
+	},
+	"theme.CodeBlock.copied": {
+		"message": "복사 완료",
+		"description": "The copied button label on code blocks"
+	},
+	"theme.CodeBlock.copy": {
+		"message": "복사",
+		"description": "The copy button label on code blocks"
+	},
+	"theme.blog.post.plurals": {
+		"message": "{count}건",
+		"description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+	},
+	"theme.blog.tagTitle": {
+		"message": "{tagName} 태그의 글이 {nPosts} 있습니다.",
+		"description": "The title of the page for a blog tag"
+	},
+	"theme.tags.tagsPageLink": {
+		"message": "모든 태그 보기",
+		"description": "The label of the link targeting the tag list page"
+	},
+	"theme.docs.sidebar.expandButtonTitle": {
+		"message": "사이드바 펼치기",
+		"description": "The ARIA label and title attribute for expand button of doc sidebar"
+	},
+	"theme.docs.sidebar.expandButtonAriaLabel": {
+		"message": "사이드바 펼치기",
+		"description": "The ARIA label and title attribute for expand button of doc sidebar"
+	},
+	"theme.docs.paginator.navAriaLabel": {
+		"message": "글 목록",
+		"description": "The ARIA label for the docs pagination"
+	},
+	"theme.docs.paginator.previous": {
+		"message": "앞으로",
+		"description": "The label used to navigate to the previous doc"
+	},
+	"theme.docs.paginator.next": {
+		"message": "뒤로",
+		"description": "The label used to navigate to the next doc"
+	},
+	"theme.docs.tagDocListPageTitle.nDocsTagged": {
+		"message": "태그된 문서 : {count}",
+		"description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+	},
+	"theme.docs.tagDocListPageTitle": {
+		"message": "\"{tagName}\" 태그된 문서 : {nDocsTagged}",
+		"description": "The title of the page for a docs tag"
+	},
+	"theme.docs.sidebar.collapseButtonTitle": {
+		"message": "사이드바 숨기기",
+		"description": "The title attribute for collapse button of doc sidebar"
+	},
+	"theme.docs.sidebar.collapseButtonAriaLabel": {
+		"message": "사이드바 숨기기",
+		"description": "The title attribute for collapse button of doc sidebar"
+	},
+	"theme.docs.versions.unreleasedVersionLabel": {
+		"message": "이것은 릴리스 전 {siteTitle} {versionLabel} 의 문서입니다.",
+		"description": "The label used to tell the user that he's browsing an unreleased doc version"
+	},
+	"theme.docs.versions.unmaintainedVersionLabel": {
+		"message": "이것은 {siteTitle} {versionLabel} 문서로 현재 활성화되어 있지 않습니다.",
+		"description": "The label used to tell the user that he's browsing an unmaintained doc version"
+	},
+	"theme.docs.versions.latestVersionSuggestionLabel": {
+		"message": "최신의 문서는 {latestVersionLink}({versionLabel})를 보세요.",
+		"description": "The label used to tell the user to check the latest version"
+	},
+	"theme.docs.versions.latestVersionLinkLabel": {
+		"message": "최신 버전",
+		"description": "The label used for the latest version suggestion link label"
+	},
+	"theme.common.editThisPage": {
+		"message": "이 페이지를 편집",
+		"description": "The link label to edit the current page"
+	},
+	"theme.common.headingLinkTitle": {
+		"message": "제목에 대한 직접 링크",
+		"description": "Title for link to heading"
+	},
+	"theme.lastUpdated.atDate": {
+		"message": "updated at : {date}",
+		"description": "The words used to describe on which date a page has been last updated"
+	},
+	"theme.lastUpdated.byUser": {
+		"message": "updated by : {user}",
+		"description": "The words used to describe by who the page has been last updated"
+	},
+	"theme.lastUpdated.lastUpdatedAtBy": {
+		"message": "Updated at {atDate} by {byUser}",
+		"description": "The sentence used to display when a page has been last updated, and by who"
+	},
+	"theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+		"message": "← 메인 메뉴로 돌아가기",
+		"description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+	},
+	"theme.navbar.mobileVersionsDropdown.label": {
+		"message": "버전",
+		"description": "The label for the navbar versions dropdown on mobile view"
+	},
+	"theme.common.skipToMainContent": {
+		"message": "메인 콘텐츠로 건너뛰기",
+		"description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+	},
+	"theme.tags.tagsListLabel": {
+		"message": "Tags:",
+		"description": "The label alongside a tag list"
+	},
+	"theme.TOCCollapsible.toggleButtonLabel": {
+		"message": "이 페이지에는",
+		"description": "The label used by the button on the collapsible TOC component"
+	},
+	"theme.tags.tagsPageTitle": {
+		"message": "Tags",
+		"description": "The title of the tag list page"
+	}
+}

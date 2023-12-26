@@ -1,13 +1,14 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+import {themes as prismThemes} from 'prism-react-renderer';
+import * as websiteConfig from './website_config.json';
+
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Moondeuk',
-  tagline: 'moondeuk',
+  tagline: 'Software Engineer, developer and architect',
   url: 'https://moondeuk.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -20,9 +21,12 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'ko'],
+    localeConfigs: {
+      en: { label: 'English'},
+      ko: { label: 'Korean'}
+    }
   },
-
   presets: [
     [
       'classic',
@@ -63,23 +67,32 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://kblog.moondeuk.com',
             label: 'k-blog',
             position: 'left',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right'
+          },
+          {
+              href: `https://github.com/${websiteConfig.GITHUB_USER}/${websiteConfig.REPOSITORY_NAME}`,
+              label: 'GitHub',
+              position: 'right'
           }
         ],
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} moondeuk.`,
+        copyright: `Copyright © ${new Date().getFullYear()} moondeuk. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
     }),
 };
