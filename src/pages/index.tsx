@@ -27,7 +27,7 @@ function Home() {
 	const lines = [
 		translate({
 			id: 'homepage.description.descriptionLine_1',
-			message: 'My name is Deukryong Moon and I normally go by DR Moon. Enthusiastic and self-motivated IT solution architect with over 15 years of experience in manufacturing system development. Possessing a wide range of skills and deep knowledge in software development, including designing, modifying, and testing technical architectures. Proficient in multiple programming languages with a strong background in business domain processes. Known for successfully transforming domain processes into software solutions and consistently delivering projects on time in demanding real-time environments.',
+			message: 'Hello, I am Deukryong Moon (문득룡), commonly referred to as DR, which is a shortened version of it. I am an enthusiastic and self-motivated IT solution architect with over 15 years of extensive experience in developing manufacturing systems. I possess a diverse skill set and profound expertise in software development, encompassing the design, modification, and rigorous testing of technical architectures. Proficient across multiple programming languages, I have a robust understanding of business domain processes. My track record highlights successful endeavors in converting domain processes into efficient software solutions, consistently meeting project deadlines within demanding real-time environments.',
 			description: 'The first line of description',
 		})
 	];

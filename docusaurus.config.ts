@@ -37,14 +37,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/moondeuk/docusaurus/tree/main/docs',
+            `https://github.com/${websiteConfig.GITHUB_USER}/${websiteConfig.REPOSITORY_NAME}/tree/main/docs`,
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/moondeuk/docusaurus/tree/main/blog',
+            `https://github.com/${websiteConfig.GITHUB_USER}/${websiteConfig.REPOSITORY_NAME}/tree/main/blog`,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -65,7 +65,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'Architecture/linux-ha-clustering',
             position: 'left',
             label: 'Docs',
           },
@@ -93,8 +93,12 @@ const config = {
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
-      },
+      }
     }),
+    markdown: {
+      mermaid: true,
+    },
+    themes: ['@docusaurus/theme-mermaid']
 };
 
 module.exports = config;
