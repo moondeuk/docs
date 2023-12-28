@@ -1,0 +1,10 @@
+### Linux Command
+
+###  never prompt the current user for a password when that user uses sudo:
+```bash
+echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/dont-prompt-$USER-for-sudo-password"
+```
+
+It creates a file called /etc/sudoers.d/dont-prompt-<YOUR USERNAME>-for-sudo-password with the following contents:
+
+<YOUR USERNAME> ALL=(ALL:ALL) NOPASSWD: ALL
