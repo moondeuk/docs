@@ -8,7 +8,7 @@ import * as websiteConfig from './website_config.json';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Moondeuk',
-  tagline: 'Software Engineer, developer and architect',
+  tagline: 'Software Engineer, Developer and Architect',
   url: 'https://moondeuk.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
