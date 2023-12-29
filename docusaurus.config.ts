@@ -74,7 +74,7 @@ const config = {
             href: 'https://kblog.moondeuk.com',
             label: 'k-blog',
             position: 'left',
-            target: '_blank'
+            target: '_self'
           },
           {
             type: 'localeDropdown',
