@@ -71,9 +71,10 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            to: 'https://kblog.moondeuk.com',
+            href: 'https://kblog.moondeuk.com',
             label: 'k-blog',
             position: 'left',
+            target: '_blank'
           },
           {
             type: 'localeDropdown',
