@@ -71,7 +71,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://kblog.moondeuk.com',
+            to: 'https://kblog.moondeuk.com',
             label: 'k-blog',
             position: 'left',
           },
