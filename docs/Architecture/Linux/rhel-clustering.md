@@ -6,9 +6,9 @@ slug: /architecture/linux/rhel-clustering
 
 # RHEL Clustering
 
-This is  [Notes from Udemy Class](https://www.udemy.com/course/linux-high-availability-cluster/)
+This is my comment + [notes from Udemy Class](https://www.udemy.com/course/linux-high-availability-cluster/)
 
-## starting/stopping cluster services
+## Starting/Stopping Cluster Services
 
 ```bash title="Show Cluster Status"
 [root@nodea /] pcs cluster status
@@ -57,7 +57,7 @@ nodeb.example.com: Stopping Cluster (corosync)...
 nodeb.example.com: Starting Cluster (pacemaker)...
 nodeb.example.com: Starting Cluster (corosync)...
 ```
-## enabling/disabling cluster services
+## Enabling/Disabling Cluster Services
 
 ```bash title="enable cluster services from all nodes"
 [root@nodea /] pcs cluster enable --all
@@ -80,7 +80,7 @@ nodeb.example.com: Cluster Enabled
 nodeb.example.com: Cluster Disabled
 ```
 
-## standby/unstandby cluster services
+## Standby/Unstandby Cluster Services
 ```bash title="standby node"
 [root@nodea /] pcs cluster standby noded.example.com
 [root@nodea /] pcs cluster status
@@ -110,7 +110,7 @@ Daemon Status:
 [root@nodea /] pcs cluster unstandby noded.example.com
 ```
 
-## adding/removing a cluster node
+## Adding/Removing a Cluster Node
 ```bash title="add firewall rule for high-availability"
 [root@noded /] firewall-cmd --add-service=high-availability --permanent
 success
@@ -264,7 +264,7 @@ Status: ON
 [root@nodea /] fence_xvm -H nodea.example.com -o on
 ```
 
-## quorum operations
+## Quorum Operations
 ```bash title="show quorum status (quorate)"
 [root@nodea /] corosync-quorumtool
 ------------------
@@ -322,7 +322,7 @@ Membership information
 [root@nodea /] pcs quorum update auto_tie_breaker=1 
 ```
 
-## creating and configuring resources
+## Creating/Configuring Resources
 ```bash title="Describe Resource Agent"
 [root@nodea /] pcs resource describe Filesystem
 ```
@@ -385,7 +385,7 @@ Colocation Constraints:
 Ticket Constraints:
 ```
 
-## configuration file
+## Configuration/Log File
 ```bash title="Corosync Configuration File and Log Path"
 vi /etc/corosync/corosync.conf
 
@@ -416,7 +416,7 @@ vi /etc/sysconfig/pacemaker
 [root@nodea /] pcs cluster start --all
 ```
 
-## resource failures and how to debug
+## Resource Failures and How To Debug
 ```bash title="How to see failcount"
 [root@nodea /] pcs resource failcount show webserv
 Failcounts for resource 'webserv'
@@ -429,7 +429,7 @@ Failcounts for resource 'webserv'
 ...
 ```
 
-## complex resource group (nfs)
+## Complex Resource Group (nfs)
 ```bash title="create nfs file system resource"
 [root@nodea /] pcs resource create nfsfs Filesystem device=/dev/sda1 directory=/nfsshare fstype=xfs --group nfs
 ```
@@ -483,7 +483,7 @@ Daemon Status:
   pcsd: active/enabled
 ```
 
-## managing constraints
+## Managing Constraints
 * Constraints are rules that place restrictions on the order in which resources or resource groups may be started, or the nodes on which they may run. Constraints are important for managing complex resource groups or sets of resource groups, which depend upon one another or which may interfere with each other.
 
 - There are three main types of constraints :
@@ -532,7 +532,7 @@ Colocation Constraints:
 ...
 ```
 
-### resouce stickeness
+### Resouce Stickeness
 - When resource prefered node is nodea, and resource is failed over to nodeb. Even after nodea is re-available by restoring the node, aovid the situation the resource is fail over back to nodea a by setting resource-stickiness higher then preferred node score.
 ```bash
 [root@nodea /] pcs resource defaults
@@ -543,7 +543,7 @@ resource-stickiness: 0
 resource-stickiness: 0
 ```
 
-### colocation constraints
+### Colocation Constraints
 - Colocatoin consraints specify that two resources must (or must not) run on the same node. To set a colocatoin constraint to keep two resources or resource groups together.
 
 ```bash
@@ -556,8 +556,8 @@ resource-stickiness: 0
 [root@nodea /] pcs constraint colocation add B with A -INFINITY
 ```
 
-## two node cluster issue
-### no room for node failure
+## Two Node Cluster Issue
+### No Room for Node Failure
 As the quorum should be 50% + 1 vote, There is no room for failure with two nodes cluster.
 
 ```bash title="two_node option : If one of the nodes goes down, the rest will satisfy the quorum"
@@ -569,15 +569,15 @@ quorum {
   two_node: 1
 }
 ```
-### split brain
+### Split Brain
 ![Alt text](<split-brain.png>)
 If node A and node B constitute a cluster but are unable to communicate with each other, then the following situations may arise:
 
 - Fencing is enabled (fence Racing): Each node will attempt to fence the other node, potentially leading to both nodes being fenced, thus isolating them from the cluster.
 - Fencing is disabled : Each node will attempt to set up the cluster independently, possibly resulting in both nodes attempting to start resources simultaneously, leading to a corrupted status due to resource conflicts.
 
-### fence death/fence racing
+### Fence Death/Fence Racing
 To avoid the fence racing from the split brain situation, fence delay can be applied to one of the nodes, so when one node is fenced the other node will be delayed before fencing and start cluster.
 
-### the cluster doe not start until both nodes have started
+### Cluster does not start until both nodes have started
 When two_node is enabled for two nodes cluster, wait-for-all option is also enabled. Because of this, the cluser may not start. So this option should be disabled to avoid the issue.
