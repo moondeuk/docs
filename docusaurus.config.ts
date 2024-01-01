@@ -65,7 +65,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Architecture/linux-ha-clustering',
+            docId: 'Architecture/Linux/linux-ha-clustering',
             position: 'left',
             label: 'Docs',
           },
