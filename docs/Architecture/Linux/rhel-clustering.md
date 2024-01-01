@@ -581,3 +581,199 @@ To avoid the fence racing from the split brain situation, fence delay can be app
 
 ### Cluster does not start until both nodes have started
 When two_node is enabled for two nodes cluster, wait-for-all option is also enabled. Because of this, the cluser may not start. So this option should be disabled to avoid the issue.
+
+## Configurating iSCSI Targets * Initiators
+- Internet Small Computer System Interface (iSCSI) is an TCP/IP-based standard for connecting storage devices. iSCSI uses IP networks to encapsulate SCSI commands, allowing data to be transferred over long distances.
+- iSCSI provides shared storage among a number of client systems. Storage devices are attached to servers (targets). Client systems (initiators) access the remote storage devices over IP networks.
+- To the client systems, the storage devices appear to be locally attached. iSCSI uses the existing IP infrastructure and doe not require any additional cabling, as is the case with Fibre Channel (FC) storage area networks.
+![Alt text](<san-diagram.png>)
+
+| Term   | Description              |
+|--------|--------------------------|
+| initiator | An iSCSI client, typically available as software but also implemented as iSCSI HBAs. Initiators must be given unique names. |
+| target | An iSCSI storage resource, configured for connection from an iSCSI server. Targets must be given unique names. A target provides one or more numbered block devices called logical units. An iSCSI server can provide many targets concurrently. |
+| ACL | An Access Control List (entry), an access restriction using the node IQN (commonly the iSCSI initiator Name) to validate access permissions for an initiator. |
+| discovery | Querying a target server to list configured targets. Target use requires an addtional access steps |
+| IQN | An iSCSI Qualified Name, a worldwide unique name used to identify both initiators and targets, in the mandated naming format: iqn.YYYY-MM.com.reversed.domain[:optional_string]
+iqn-Signifying that this name will use a domain as its identifier.
+YYYY-MM-The first month in which the domain name was owned.
+com.reversed.domain-The reversed domain name of the organization creating this iSCSI name.
+optional_string-An optional, colon-prefixed string assigned by the domain owner as desired while remaining worldwide unique. It may include colons to seperate organization boundaries. |
+| login | Authenticating to a target or LUN to begin client block device use. |
+| LUN | A Logical Unit Number, numbered block devices attached to and available through a target. One or more LUNs may be attached to a single target, although typically a target provides only on LUN. |
+| node | Any iSCSI intiator or iSCSI target, identified by its IQN. |
+| portal | An IP address and port on a target or initiator used to establish connections. Some iSCSI implementations use portal and node interchangeably. |
+| TPG | Target Portal Group, the set of interface IP addresses and TCP ports to which a specific iSCSI taret will listen. Target configuration (e.g., ACLs) can be added to the TPG to coordinate settings for multiple LUNs. |
+
+## Managing High Availability Logical Volumes
+### clustered LVM
+- All volume groups and logical volumes on shared storage are available to all cluster nodes all of the time.
+- Clustered LVM is a good choice when working with a shared file system, like GFS2.
+- The active/active configuration of logical volumes in a cluster using clustered LVM is accomplished by using a daemon called clvmd to propagate metadata changes to all cluster nodes. The clvmd daemon manages clustered volume groups and communicates their metadata changes made on one cluster node to all the remaining nodes in the cluster.
+- In order to prevent multiple nodes from changing LVM metadata simultaneously, clustered LVM uses Distributed Lock Manager (DLM) for lock management. The clvmd daemon and the DLM lock manager must be installed prior to configuring clustered LVM.
+
+### HA-LVM
+- A volume group and its logical volumes can only be accessed by one node at a time.
+- HA-LVM is a good choice when working with a more traditional file system like ext4 or XFS and restricted access to just one node at a time is desired to prevent file system and/or data corruption.
+
+### Sharing a disk(lun) to all clustered nodes using iSCSI Server
+```bash title="Show the disk to be shared"
+[root@server ~] fdisk -l
+...
+Disk /dev/sdc: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+SEctor size (logical/physical) : 512 bytes / 512 bytes
+I/O size (minimum/optimal) : 512 bytes / 512 bytes
+Disk label type: dos
+Disk Identifier: 0xafe66b96
+...
+```
+```bash title="Target"
+[root@server ~] targetcli
+targetcli shell version 2.1.fb46
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/> pwd
+/
+
+/> ls
+o- / .....................................................................  [...]
+  o- backstores ..........................................................  [...]
+  | o- block .................................................[Storage Object: 0]
+  | o- fileio ................................................[Storage Object: 0]
+  | o- pscsi .................................................[Storage Object: 0]
+  | o- ramdisk ...............................................[Storage Object: 0]
+  o- iscsi ........................................................  [Targets: 0]
+  o- loopback .....................................................  [Targets: 0]
+
+/> cd backstores/block
+/backstores/block> 
+/backstores/block> create sharedlun0 /dev/sdc
+Created block storage object sharedlun0 using /dev/sdc.
+/backstores/block> cd /iscsi
+/iscsi> ls
+o- iscsi ..........................................................  [Targets: 0]
+/iscsi> create
+Created target iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5.
+Created TPG 1.
+Global pref auto_add_default_portal=true
+Created default portal listening on all IPs (0.0.0.0), port 3260.
+/iscsi>
+/iscsi> ls
+o- iscsi ..........................................................  [Targets: 1]
+  o- iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5 ........  [TPGs: 1]
+    o- tpg1 .............................................  [no-gen-acls, no-auth]
+      o- acls ........................................................  [ACLs: 0]
+      o- luns ........................................................  [LUNs: 0]
+      o- portals ..................................................  [Portals: 1]
+        o- 0.0.0.0:3260 ...................................................  [OK]
+/iscsi>
+/iscsi> cd iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5/
+/iscsi/iqn.20....dbee0df4bdc5> ls
+o- iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5 ..........  [TPGs: 1]
+  o- tpg1 ...............................................  [no-gen-acls, no-auth]
+    o- acls ..........................................................  [ACLs: 0]
+    o- luns ..........................................................  [LUNs: 0]
+    o- portals ....................................................  [Portals: 1]
+      o- 0.0.0.0:3260 .....................................................  [OK]
+/iscsi/iqn.20....dbee0df4bdc5> cd tpg1/
+/iscsi/iqn.20....dbee0df4bdc5/tpg1> cd luns
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/luns> create /backstores/block/sharedlun0
+Created LUN 0.
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/luns> cd ..
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/luns> cd acls
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/acls> create iqn.1994-05.com.redhat:78adad1b615a
+Created Node ACL for iqn.1994-05.com.redhat:78adad1b615a
+Created mapped LUN0.
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/acls> create iqn.1994-05.com.redhat:5df419c4cced
+Created Node ACL for iqn.1994-05.com.redhat:5df419c4cced
+Created mapped LUN0.
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/acls> create iqn.1994-05.com.redhat:e680f92e652c
+Created Node ACL for iqn.1994-05.com.redhat:e680f92e652c
+Created mapped LUN0.
+/iscsi/iqn.20....dbee0df4bdc5/tpg1/acls> exit
+Global pref auto_save_on_exit=true
+Configuration saved to /etc/target/saveconfig.json
+```
+
+
+```bash title="Get IQN for iSCSI initiator (Client)"
+[root@nodea ~] cd /etc/iscsi/
+[root@nodea iscsi] ll
+total 16
+-rw-r--r--. 1 root root    50 Apr   1 19:13 initiatorname.iscsi
+-rw-------. 1 root root 11700 Feb   3  2015 iscsid.conf
+[root@nodea iscsi] cat initiatorname.iscsi
+InitiatorName=iqn.1994-05.com.redhat:78adad1b615a
+[root@nodea iscsi] ssh nodeb
+Last login: Thu Apr  4 11:35:17 2019 from 192.168.209.1
+[root@nodeb ~] cd /etc/iscsi/
+[root@nodeb iscsi] cat initiatorname.iscsi
+InitiatorName=iqn.1994-05.com.redhat:5df419c4cced
+[root@nodea iscsi] ssh nodec
+Last login: Thu Apr  4 11:35:17 2019 from 192.168.209.1
+[root@nodec ~] cd /etc/iscsi/
+[root@nodec iscsi] cat initiatorname.iscsi
+InitiatorName=iqn.1994-05.com.redhat:e680f92e652c
+```
+
+```bash title="Discovery and map iSCSI device on the client"
+[root@nodea iscsi] iscsiadm -m discovery -t sendtargets -p 192.168.209.132
+192.168.209.132:3260,1 iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5
+[root@nodea iscsi] iscsiadm -m node -T iqn.2003-01.org.linux-iscsi.server.x8664:sn.dbee0df4bdc5 -l
+[root@nodea iscsi] fdisk -l
+...
+Disk /dev/sda: 1073 MB, 1073741824 bytes, 2097152 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal) : 512 bytes / 4194304 bytes
+Disk label type: dos
+Disk identifier: 0xafe66b96
+...
+# Do the same for other nodes
+```
+
+```bash title="Check SCSI ID"
+[root@nodea iscsi] /usr/lib/udev/scsi_id -g -u /dev/sda
+36001405af949bccb7ad41acb39da3a5b
+```
+
+### Create Resource for iSCSI HA-LVM
+```bash title="Volume Group "
+[root@nodea ~] vgs # Volume Group Information
+  VG         #PV #LV #SN Attr   VSize    Vfree
+  clustervg    1   1   0 wz--n- 1016.00m 516.00m
+  rhel         1   2   0 wz--n-   14.51g  40.00m
+[root@nodea ~] lvs # Logical Volume Information
+  LV        VG         Attr       LSize   Pool Origin Data% Meta% Move Log Cpy% Sync Convert
+  clusterlv clustervg   -wi------- 500.00m
+  root      rhel        -wi-ao---- 12.97g
+  swap      rhel        -wi-ao----  1.50g
+[root@nodea ~]
+[root@nodea ~] pcs resource create halvm LVM  volgrpname=clustervg exclusive=true --group halvmgrp
+[root@nodea ~] pcs status
+...
+Online: [ nodea.example.com nodeb.example.com nodec.example.com ]
+
+Full list of resources:
+
+ fence_nodea    (stonith:fence_xvm) :   Started nodea.example.com
+ fence_nodeb    (stonith:fence_xvm) :   Started nodeb.example.com
+ fence_nodec    (stonith:fence_xvm) :   Started nodec.example.com
+ Resource Group: halvmgrp
+     halvm   (ocf::heartbeat:LVM) : Started nodea.example.com
+
+[root@nodea ~] lvs # Logical Volume Information
+  LV        VG         Attr       LSize   Pool Origin Data% Meta% Move Log Cpy% Sync Convert
+  clusterlv clustervg   -wi-a----- 500.00m
+  root      rhel        -wi-ao---- 12.97g
+  swap      rhel        -wi-ao----  1.50g
+[root@nodea ~]
+[root@nodea ~] pcs resource create xfsfs Filesystem device="/dev/clustervg/clusterlv" directory="/mnt1" fstype="xfs" --group halvmgrp
+[root@nodea ~] df -h
+Filesystem                      Size  Used Avail Use% Mounted on
+...
+/dev/mapper/clustervg-clusterlv 497M  26M  472M  6%  /mnt1
+ ...
+ 
