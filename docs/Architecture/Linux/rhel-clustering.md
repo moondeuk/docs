@@ -634,7 +634,7 @@ quorum {
 }
 ```
 ### Split Brain
-![Alt text](<Untitled Diagram.drawio (3).png>)
+![Alt text](<split-brain.png>)
 If node A and node B constitute a cluster but are unable to communicate with each other, then the following situations may arise:
 
 - Fencing is enabled (fence Racing): Each node will attempt to fence the other node, potentially leading to both nodes being fenced, thus isolating them from the cluster.
