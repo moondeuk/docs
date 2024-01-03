@@ -1,11 +1,10 @@
 {
-	"TRACKING_ID": "TRACKING_ID_VALUE",
+	"TRACKING_ID": "G-T941023SHH",
 	"ANONYMIZE_IP": false,
 	"GITHUB_USER": "moondeuk",
 	"OPEN_COLLECTIVE_USER": "moondeuk",
 	"REPOSITORY_NAME": "moondeuk.com",
 	"TWITTER_NAME": "moondeuk",
 	"LINKEDIN_NAME": "moondeuk",
-	"MAILCHIMP_URL": "MAILCHIMP_URL_VALUE",
-	"DEPLOYMENT_BRANCH": "gh-pages"
+	"DEPLOYMENT_BRANCH": "main"
 }
